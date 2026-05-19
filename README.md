@@ -1,5 +1,7 @@
 # Análise Comparativa do Discurso de Influenciadores: Brasil vs. Estados Unidos
 
+![Fluxograma](assets/fluxograma_metodologia.png)
+
 ## 📋 Visão Geral
 
 Este projeto apresenta uma análise comparativa e multinível do discurso de influenciadores digitais no Instagram no Brasil e nos Estados Unidos, com foco em criadores de conteúdo direcionados a crianças e adolescentes. 

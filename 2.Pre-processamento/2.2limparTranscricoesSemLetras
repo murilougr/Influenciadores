@@ -1,0 +1,59 @@
+import os
+import pandas as pd
+import re
+
+pasta = "/content/unificado"
+pasta_saida = "/content/resultados"
+
+# Criar pasta de saída se não existir
+os.makedirs(pasta_saida, exist_ok=True)
+
+# regex para detectar se existe ao menos uma letra
+tem_letra = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]")
+
+# Até 20 arquivos CSV
+arquivos = [f for f in os.listdir(pasta) if f.endswith(".csv")][:20]
+
+for nome_arquivo in arquivos:
+    caminho = os.path.join(pasta, nome_arquivo)
+
+    try:
+        df = pd.read_csv(caminho)
+
+        # Verificar colunas importantes
+        if "CATEGORIA" not in df.columns or "TEXTO" not in df.columns:
+            print(f"⚠️ {nome_arquivo} ignorado — faltando CATEGORIA ou TEXTO")
+            continue
+
+        print(f"\n📄 Processando: {nome_arquivo}")
+
+        # Filtrar somente transcrições
+        df_filtrado = df[df["CATEGORIA"] == "transcricao"].copy()
+
+        # Identificar linhas cujo TEXTO não tem nenhuma letra
+        indices_sem_letra = df_filtrado[
+            ~df_filtrado["TEXTO"].astype(str).str.contains(tem_letra)
+        ].index
+
+        print(f"  → Removendo {len(indices_sem_letra)} linhas sem letra...")
+
+        # Remover essas linhas do df original
+        df_limpo = df.drop(indices_sem_letra)
+
+        # Recriar NUMERO como sequência
+        if "NUMERO" in df_limpo.columns:
+            df_limpo = df_limpo.reset_index(drop=True)
+            df_limpo["NUMERO"] = df_limpo.index + 1
+        else:
+            print("  ⚠️ Coluna NUMERO não existe! Nenhum ajuste feito nela.")
+
+        # Caminho de saída
+        caminho_saida = os.path.join(pasta_saida, nome_arquivo)
+
+        # Salvar com o mesmo nome na pasta resultados
+        df_limpo.to_csv(caminho_saida, index=False)
+
+        print(f"  ✔️ Arquivo salvo em: {caminho_saida}")
+
+    except Exception as e:
+        print(f"❌ Erro ao processar {nome_arquivo}: {e}")

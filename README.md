@@ -45,14 +45,7 @@ Este projeto inclui mensagens contendo **linguagem tóxica** para fins analític
 
 ## 📁 Estrutura do Projeto
 
-```
-Influenciadores/
-├── README.md
-├── data/              # Dados coletados e processados
-├── analysis/          # Scripts de análise
-├── results/           # Resultados e visualizações
-└── documentation/     # Documentação adicional
-```
+Os arquivos foram separados por pastas, para auxiliar ao uso de cada ferramenta isoladamente, com o intuito de ensinar caso alguém queira saber como usar, com exemplos de uso!
 
 ## 🛠️ Tecnologias e Ferramentas
 

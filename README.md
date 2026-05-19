@@ -66,10 +66,6 @@ Esta pesquisa contribui para:
 - Informar políticas de moderação de conteúdo
 - Orientar criadores de conteúdo e plataformas digitais
 
-## 👥 Autores
-
-- [murilougr](https://github.com/murilougr)
-
 ## 📄 Licença
 
 Este projeto é fornecido para fins acadêmicos e de pesquisa.
